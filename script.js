@@ -30,37 +30,51 @@ function task6(data, value) {
 }
 
 function task7(date, data, value) {
+    if ((!Number.isFinite(date) && date !== undefined) ||
+    (!Number.isFinite(data) && data !== undefined) ||
+    (!Number.isFinite(value) && value !== undefined)) return 'Invalid Value';
+    date = date === undefined ? 0 : Math.floor(date);
+    data = data === undefined ? 0 : Math.floor(data);
+    value = value === undefined ? 0 : Math.floor(value);
     
-
-    date = (typeof(date) === 'number' && isFinite(date)) ? parseInt(+date) : date === undefined ? 0 : console.log('Invalid Date');
-    data = (typeof(data) === 'number' && isFinite(data)) ? parseInt(+data) : data === undefined ? 0 : console.log('Invalid Date');
-    value = (typeof(value) === 'number' && isFinite(value)) ? parseInt(+value) : value === undefined ? 0 : console.log('Invalid Date');
-
     data += Math.floor(value/60);
     value = value >= 0 ? value%60 : 60 + value%60;
     date += Math.floor(data/60);
     data = data >= 0 ? data%60 : 60 + data%60;
     date = date >= 0 ? date%24 : 24 + date%24;
-    console.log(date, data, value);
 
-
+    data = data < 10 ? data === 0 ? '00' : `0${data}` : `${data}`;
+    value = value < 10 ? value === 0 ? '00' : `0${value}` : `${value}`;
+    console.log(`${date}:${data}:${value}`);
 }
 
 function task8 (date, data, value) {
-    date = parseInt(date);
-    data = parseInt(data);
-    value = parseInt(value);
-    value = value > 0 ? value : 0;
-    value = data > 0 ? 60*data+value : value;
-    value = date > 0 ? 3600*date+value : value;
-    return value;
+    if ((!Number.isFinite(date) && date !== undefined) ||
+    (!Number.isFinite(data) && data !== undefined) ||
+    (!Number.isFinite(value) && value !== undefined)) return 'Invalid Value';
+    date = date === undefined ? 0 : Math.floor(date);
+    data = data === undefined ? 0 : Math.floor(data);
+    value = value === undefined ? 0 : Math.floor(value);
+    
+    return value + 60*data + 3600*date;
 }
 
 function task9 (value) {
-    let date = 0;
-    let data = 0;
-    value = parseInt(value);
-    if (value > 0) {
-        
-    } else value = 0;
+    if (!Number.isFinite(value) && value !== undefined) return 'Invalid Value';
+    value = value === undefined ? 0 : Math.floor(value);
+    
+    let date = Math.floor(value/3600);
+    let data = Math.floor(value/60);
+    value = value%60;
+    value = value >= 0 ? value : 60 + value;
+    data = data >= 0 ? data%60 : 60 + data%60;
+    date = date >= 0 ? date%24 : 24 + date%24;
+
+    data = data < 10 ? data === 0 ? '00' : `0${data}` : `${data}`;
+    value = value < 10 ? value === 0 ? '00' : `0${value}` : `${value}`;
+    return `${date}:${data}:${value}`;
+}
+
+function task10(date, data, value, date1, data1, value1) {
+    return task9(Math.abs(task8(date, data, value) - task8(date1, data1, value1)));
 }
